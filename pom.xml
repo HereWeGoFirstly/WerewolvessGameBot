@@ -15,6 +15,7 @@
     <description>WerewolvessGameBot</description>
     <properties>
         <java.version>21</java.version>
+        <telegram.version>3.6</telegram.version>
     </properties>
     <dependencies>
         <dependency>
@@ -27,7 +28,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>${telegram.version}</version>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
