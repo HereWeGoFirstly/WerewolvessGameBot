@@ -27,7 +27,7 @@ public class WerewolvesBot extends AbilityBot {
     public Ability startBot() {
         return Ability.builder()
                 .name("start")
-                .
+                .info("")
                 .build();
     }
 }

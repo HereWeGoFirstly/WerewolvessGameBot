@@ -10,4 +10,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class BotProperties {
     private String name;
     private String token;
+    private Start start;
+
+    @Getter
+    @Setter
+    static class Start {
+        private String description;
+        private String text;
+    }
 }

@@ -1,3 +1,6 @@
 bot:
   name: WerewolvessGameBot
   token: 6373757126:AAG9I9z8aDBFplXLThhl3fkJPasuadHs224
+  start:
+    description: Starts the bot
+    text: Welcome to Baeldung Pizza Bot.\nPlease enter your name
