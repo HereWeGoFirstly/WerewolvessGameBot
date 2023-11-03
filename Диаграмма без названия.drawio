@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-11-03T21:22:21.157Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.833 YaBrowser/23.9.4.833 Yowser/2.5 Safari/537.36" etag="3_NunhHp4OhPVtXf1Gtv" version="22.0.8" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-11-03T21:24:52.892Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.833 YaBrowser/23.9.4.833 Yowser/2.5 Safari/537.36" etag="lhowrOBHUcXZlpcVmXNR" version="22.0.8" type="github" pages="2">
   <diagram name="Страница — 1" id="6bJ6J4g5H0hAXcQo4oVN">
     <mxGraphModel dx="1386" dy="759" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
@@ -260,6 +260,9 @@
         </mxCell>
         <mxCell id="kb9f10up2UWM7XCzW_Nm-25" value="Ваша роль: *роль*" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="632.5" y="1240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kb9f10up2UWM7XCzW_Nm-28" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="470" width="20" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
