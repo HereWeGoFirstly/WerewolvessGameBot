@@ -15,7 +15,7 @@ public class WerewolvessGameBotApplication {
         ConfigurableApplicationContext ctx = SpringApplication.run(WerewolvessGameBotApplication.class, args);
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(ctx.getBean("pizzaBot", AbilityBot.class));
+            botsApi.registerBot(ctx.getBean("werewolvesBot", AbilityBot.class));
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
