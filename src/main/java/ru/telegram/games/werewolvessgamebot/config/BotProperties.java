@@ -14,7 +14,7 @@ public class BotProperties {
 
     @Getter
     @Setter
-    static class Start {
+    public static class Start {
         private String description;
         private String text;
     }

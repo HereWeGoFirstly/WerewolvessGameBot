@@ -14,5 +14,5 @@ public abstract class GameRole {
     private static String name;
     private TeamColor teamColor;
 
-    public abstract void doAction();
+//    public abstract void doAction();
 }
