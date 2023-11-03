@@ -8,6 +8,8 @@ import ru.telegram.games.werewolvessgamebot.model.UserState;
 
 import java.util.Map;
 
+import static ru.telegram.games.werewolvessgamebot.model.UserState.AWAITING_NAME;
+
 public class ResponseHandler {
     public static final String CHAT_STATES = "chatStates";
 
