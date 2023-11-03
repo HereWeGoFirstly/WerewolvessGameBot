@@ -1,4 +1,4 @@
-package model;
+package model.actions;
 
 /**
  * Интерфейс, описывающий действия игровых ролей
