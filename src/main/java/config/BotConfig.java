@@ -1,16 +1,24 @@
 package config;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+import org.telegram.abilitybots.api.bot.AbilityBot;
 
-@Configuration
-@PropertySource("${application.yml}")
-@Data
-public class BotConfig {
+@Component
+public class BotConfig extends AbilityBot {
     @Value("${bot.name}")
     private String botName;
     @Value("${bot.token}")
     private String token;
+
+    public BotConfig() {
+        super("", "");
+
+
+    }
+
+    @Override
+    public long creatorId() {
+        return 0;
+    }
 }
