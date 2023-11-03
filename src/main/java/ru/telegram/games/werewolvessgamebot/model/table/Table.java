@@ -3,8 +3,6 @@ package ru.telegram.games.werewolvessgamebot.model.table;
 import lombok.Data;
 import ru.telegram.games.werewolvessgamebot.model.roles.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
