@@ -2,7 +2,6 @@ package ru.telegram.games.werewolvessgamebot.model.roles;
 
 
 import lombok.Data;
-import ru.telegram.games.werewolvessgamebot.model.actions.RoleAction;
 import org.springframework.stereotype.Component;
 
 
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public abstract class GameRole {
-    private String name;
-    private RoleAction action;
+    private static String name;
     private TeamColor teamColor;
+
+    public abstract void doAction();
 }
