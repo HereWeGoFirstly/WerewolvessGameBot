@@ -1,4 +1,4 @@
-package config;
+package ru.telegram.games.werewolvessgamebot.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

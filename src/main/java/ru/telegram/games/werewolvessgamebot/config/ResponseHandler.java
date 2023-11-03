@@ -1,4 +1,4 @@
-package config;
+package ru.telegram.games.werewolvessgamebot.config;
 
 import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;

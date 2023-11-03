@@ -1,4 +1,4 @@
-package model.actions;
+package ru.telegram.games.werewolvessgamebot.model.actions;
 
 /**
  * Интерфейс, описывающий действия игровых ролей

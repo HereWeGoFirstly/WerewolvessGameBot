@@ -1,8 +1,8 @@
-package model.roles;
+package ru.telegram.games.werewolvessgamebot.model.roles;
 
 
 import lombok.Data;
-import model.actions.RoleAction;
+import ru.telegram.games.werewolvessgamebot.model.actions.RoleAction;
 import org.springframework.stereotype.Component;
 
 

@@ -1,6 +1,6 @@
-package service;
+package ru.telegram.games.werewolvessgamebot.service;
 
-import config.WerewolvesBot;
+import ru.telegram.games.werewolvessgamebot.config.WerewolvesBot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

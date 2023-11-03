@@ -1,4 +1,4 @@
-package model.roles;
+package ru.telegram.games.werewolvessgamebot.model.roles;
 
 
 /**
