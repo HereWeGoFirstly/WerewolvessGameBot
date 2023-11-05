@@ -27,8 +27,8 @@ public class Table {
                     new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolve(), new Citizen()
                     , new Seer()));
 
-    private Map<String, GameRole> players = new HashMap<>();
-    private List<GameRole> remainingRoles = new ArrayList<>();
+    private final Map<String, GameRole> players = new HashMap<>();
+    private final List<GameRole> remainingRoles = new ArrayList<>();
 
     public void assignRoles(Map<Long, String> users) {
         List<GameRole> preset = new ArrayList<>(PRESETS.entrySet().stream()
@@ -48,11 +48,12 @@ public class Table {
             }
         }
 
-        remainingRoles.forEach((x) -> {
-            System.out.print(x.getClass().getSimpleName() + " ");
-        });
-        System.out.println();
-        remainingRoles = new ArrayList<>();
+//        remainingRoles.forEach((x) -> {
+//            System.out.print(x.getClass().getSimpleName() + " ");
+//        });
+//        System.out.println();
+//        remainingRoles = new ArrayList<>();
+
 //        for (Map.Entry<Long, String> idName : users.entrySet()) {
 //
 //            String name = idName.getValue();
@@ -66,7 +67,6 @@ public class Table {
     public static void main(String[] args) {
         Table table = new Table();
         table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя"));
-//        Map<String, GameRole> players1 = table.getPlayers();
         table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба"));
         table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза"));
         table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)"));
