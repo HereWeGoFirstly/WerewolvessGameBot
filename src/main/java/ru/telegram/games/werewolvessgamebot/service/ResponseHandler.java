@@ -1,17 +1,15 @@
 package ru.telegram.games.werewolvessgamebot.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static ru.telegram.games.werewolvessgamebot.model.UserState.*;
 
@@ -62,15 +60,12 @@ public class ResponseHandler {
     private void testKeyboards(long chatId, Message message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        if ("test1".equalsIgnoreCase(message.getText())) {
-            sendMessage.setText("IDI1 " + message.getText());
-            sendMessage.setReplyMarkup(KeyboardFactory.testKeyboard());;
-        } else if ("test2".equalsIgnoreCase(message.getText())) {
-            sendMessage.setText("IDI2 " + message.getText());
-            sendMessage.setReplyMarkup(KeyboardFactory.testKeyboard());;
+        if ("Начать игру".equalsIgnoreCase(message.getText())) {
+            sendMessage.setText("Ожидаем готовности других игроков");
+            sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         } else {
-            sendMessage.setText("Ne IDI3 " + message.getText());
-            sendMessage.setReplyMarkup(KeyboardFactory.testKeyboard());
+            sendMessage.setText("Нажмите начать игру");
+            sendMessage.setReplyMarkup(KeyboardFactory.startGame());
         }
         sender.execute(sendMessage);
 

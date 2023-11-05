@@ -7,10 +7,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.List;
 
 public class KeyboardFactory {
-    public static ReplyKeyboard testKeyboard() {
+    public static ReplyKeyboard startGame() {
         KeyboardRow row = new KeyboardRow();
-        row.add("test1");
-        row.add("test2");
+        row.add("Начать игру");
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
