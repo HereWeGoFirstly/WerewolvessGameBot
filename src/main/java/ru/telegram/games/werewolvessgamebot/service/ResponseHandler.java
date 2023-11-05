@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
+import ru.telegram.games.werewolvessgamebot.model.table.Table;
 import ru.telegram.games.werewolvessgamebot.util.Consts;
 
 import java.util.HashMap;
@@ -19,12 +20,14 @@ public class ResponseHandler {
 
     private final BotProperties botProperties;
     private final SilentSender sender;
+    private final Table table;
     private final Map<Long, UserState> chatStates;
     private final Map<Long, String> users = new HashMap<>();
 
-    public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties) {
+    public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties, Table table) {
         this.sender = sender;
         this.botProperties = botProperties;
+        this.table = table;
         db.clear();
         chatStates = db.getMap(CHAT_STATES);
     }
@@ -95,7 +98,7 @@ public class ResponseHandler {
                 messageAllSleep.setChatId(userId);
                 sender.execute(messageAllSleep);
             }
-        };
+        }
     }
 
     public boolean userIsActive(Long chatId) {
