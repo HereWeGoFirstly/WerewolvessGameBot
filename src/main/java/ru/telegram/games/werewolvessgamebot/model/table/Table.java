@@ -23,8 +23,12 @@ public class Table {
 
             "9:1", List.of(new Werewolve(), new Mason(), new Mason(),
                     new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolve(), new Citizen()
-            ,new Seer()));
+                    , new Seer()));
 
     private Map<String, GameRole> players;
     private List<GameRole> remainingRoles;
+
+    public void setTable() {
+
+    }
 }

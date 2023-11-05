@@ -4,14 +4,14 @@ import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import static ru.telegram.games.werewolvessgamebot.model.UserState.*;
+import static ru.telegram.games.werewolvessgamebot.model.UserState.AWAITING_NAME;
 
 public class ResponseHandler {
     public static final String CHAT_STATES = "chatStates";
@@ -19,12 +19,12 @@ public class ResponseHandler {
     private final BotProperties botProperties;
     private final SilentSender sender;
     private final Map<Long, UserState> chatStates;
+    private final Map<Long, String> users = new ConcurrentHashMap<>();
 
     public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties) {
         this.sender = sender;
         this.botProperties = botProperties;
         chatStates = db.getMap(CHAT_STATES);
-        System.out.println();
     }
 
     public void replyToStart(long chatId) {
