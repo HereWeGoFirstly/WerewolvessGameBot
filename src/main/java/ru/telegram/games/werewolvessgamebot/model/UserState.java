@@ -1,5 +1,5 @@
 package ru.telegram.games.werewolvessgamebot.model;
 
 public enum UserState {
-    AWAITING_NAME, FOOD_DRINK_SELECTION, PIZZA_TOPPINGS, AWAITING_CONFIRMATION
+    AWAITING_START_GAME, AWAITING_READY_TO_PLAY, READY_TO_PLAY;
 }

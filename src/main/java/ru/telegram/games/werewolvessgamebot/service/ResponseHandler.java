@@ -7,11 +7,12 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
+import ru.telegram.games.werewolvessgamebot.util.Consts;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import static ru.telegram.games.werewolvessgamebot.model.UserState.AWAITING_NAME;
+import static ru.telegram.games.werewolvessgamebot.model.UserState.*;
 
 public class ResponseHandler {
     public static final String CHAT_STATES = "chatStates";
@@ -19,11 +20,12 @@ public class ResponseHandler {
     private final BotProperties botProperties;
     private final SilentSender sender;
     private final Map<Long, UserState> chatStates;
-    private final Map<Long, String> users = new ConcurrentHashMap<>();
+    private final Map<Long, String> users = new HashMap<>();
 
     public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties) {
         this.sender = sender;
         this.botProperties = botProperties;
+        db.clear();
         chatStates = db.getMap(CHAT_STATES);
     }
 
@@ -31,15 +33,19 @@ public class ResponseHandler {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(botProperties.getStart().getText());
+        message.setReplyMarkup(KeyboardFactory.startGameAndRules());
         sender.execute(message);
-        chatStates.put(chatId, AWAITING_NAME);
+        chatStates.put(chatId, AWAITING_START_GAME);
     }
 
     public void replyToButtons(long chatId, Message message) {
         if (message.getText().equalsIgnoreCase("/stop")) {
             stopChat(chatId);
         }
-        testKeyboards(chatId, message);
+        switch (chatStates.get(chatId)) {
+            case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
+            case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
+        }
 //        switch (chatStates.get(chatId)) {
 //            case AWAITING_NAME -> replyToName(chatId, message);
 //            case FOOD_DRINK_SELECTION -> replyToFoodDrinkSelection(chatId, message);
@@ -48,37 +54,49 @@ public class ResponseHandler {
 //            default -> unexpectedMessage(chatId);
 //        }
     }
+
     private void stopChat(long chatId) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Thank you for your order. See you soon! \n Press /start to order again");
+        sendMessage.setText("");
         chatStates.remove(chatId);
         sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         sender.execute(sendMessage);
     }
 
-    private void testKeyboards(long chatId, Message message) {
+    private void replyOfStartGame(long chatId, Message message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         if ("Начать игру".equalsIgnoreCase(message.getText())) {
-            sendMessage.setText("Ожидаем готовности других игроков");
-            sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
+            sendMessage.setText("Нажмите готов");
+            sendMessage.setReplyMarkup(KeyboardFactory.ready());
+            chatStates.put(chatId, AWAITING_READY_TO_PLAY);
+        } else if ("Правила".equalsIgnoreCase((message.getText()))) {
+            sendMessage.setText(Consts.RULES);
+            sendMessage.setReplyMarkup(KeyboardFactory.startGame());
         } else {
             sendMessage.setText("Нажмите начать игру");
-            sendMessage.setReplyMarkup(KeyboardFactory.startGame());
+            sendMessage.setReplyMarkup(KeyboardFactory.startGameAndRules());
         }
         sender.execute(sendMessage);
-
     }
 
-//    private void promptWithKeyboardForState(long chatId, String text, ReplyKeyboard YesOrNo, UserState awaitingReorder) {
-//        SendMessage sendMessage = new SendMessage();
-//        sendMessage.setChatId(chatId);
-//        sendMessage.setText(text);
-//        sendMessage.setReplyMarkup(YesOrNo);
-//        sender.execute(sendMessage);
-//        chatStates.put(chatId, awaitingReorder);
-//    }
+    private void replyOfReady(long chatId, Message message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(String.format("Привет, %s! Ожидаем других игроков", message.getFrom().getFirstName()));
+        sender.execute(sendMessage);
+        chatStates.put(chatId, UserState.READY_TO_PLAY);
+        users.put(chatId, message.getFrom().getFirstName() + message.getFrom().getUserName());
+        if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
+            for (Long userId: users.keySet()) {
+                SendMessage messageAllSleep = new SendMessage();
+                messageAllSleep.setText("Город засыпает");
+                messageAllSleep.setChatId(userId);
+                sender.execute(messageAllSleep);
+            }
+        };
+    }
 
     public boolean userIsActive(Long chatId) {
         return chatStates.containsKey(chatId);

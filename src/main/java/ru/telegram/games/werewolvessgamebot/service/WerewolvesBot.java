@@ -1,11 +1,12 @@
 package ru.telegram.games.werewolvessgamebot.service;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.bot.BaseAbilityBot;
-import org.telegram.abilitybots.api.objects.*;
+import org.telegram.abilitybots.api.objects.Ability;
+import org.telegram.abilitybots.api.objects.Flag;
+import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 
