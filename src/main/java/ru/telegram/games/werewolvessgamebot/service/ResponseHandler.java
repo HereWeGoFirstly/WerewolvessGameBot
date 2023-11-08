@@ -91,9 +91,9 @@ public class ResponseHandler {
         sendMessage.setText(String.format("Привет, %s! Ожидаем других игроков", message.getFrom().getFirstName()));
         sender.execute(sendMessage);
         chatStates.put(chatId, UserState.READY_TO_PLAY);
-        users.put(chatId, message.getFrom().getFirstName() + message.getFrom().getUserName());
+        users.put(chatId, getUniqName(message));
         if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
-            for (Long userId: users.keySet()) {
+            for (Long userId : users.keySet()) {
                 SendMessage messageAllSleep = new SendMessage();
                 chatStates.put(chatId, UserState.PLAYING); //выставление всем ролям состояния: Играет
                 messageAllSleep.setText("Город засыпает");
@@ -105,6 +105,7 @@ public class ResponseHandler {
 
     /**
      * Method for action of werewolf
+     *
      * @param chatId - id of chat
      */
     private void actionOfRole(long chatId, Message message) {
@@ -113,6 +114,10 @@ public class ResponseHandler {
         sendMessage.setText("Выберите одну из 3 карт на столе");
         sendMessage.setChatId(chatId);
         sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+    }
+
+    private static String getUniqName(Message message) {
+        return message.getFrom().getFirstName() + message.getFrom().getUserName();
     }
 
     public boolean userIsActive(Long chatId) {
