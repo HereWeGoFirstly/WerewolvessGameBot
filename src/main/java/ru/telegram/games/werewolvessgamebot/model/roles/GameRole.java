@@ -14,6 +14,7 @@ public abstract class GameRole {
     private final Table table;
     private static String name;
     private TeamColor teamColor;
+    private boolean isActionPerformed;
 
     public void doAction(RoleAction action) {
         action.accept(table);
@@ -21,5 +22,9 @@ public abstract class GameRole {
 
     public String getRusName() {
         return null;
+    }
+
+    public boolean isActionPerformed() {
+        return isActionPerformed;
     }
 }
