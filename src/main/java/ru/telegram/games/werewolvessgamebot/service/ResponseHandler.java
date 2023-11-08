@@ -108,7 +108,9 @@ public class ResponseHandler {
      * @param chatId - id of chat
      */
     private void actionOfRole(long chatId, Message message) {
-
+        switch (table.getPlayers().get(message.getFrom().getFirstName())) {
+            case
+        }
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("Выберите одну из 3 карт на столе");
         sendMessage.setChatId(chatId);
