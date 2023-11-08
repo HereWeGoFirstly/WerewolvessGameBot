@@ -7,6 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.telegram.games.werewolvessgamebot.model.roles.*;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 public class MessageService {
@@ -59,5 +61,9 @@ public class MessageService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         return null;
+    }
+
+    public void initializeTable(Map<Long, String> users) {
+        table.assignRoles(users);
     }
 }

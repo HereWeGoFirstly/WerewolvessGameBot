@@ -114,6 +114,7 @@ public class ResponseHandler {
         chatStates.put(chatId, READY_TO_PLAY);
         users.put(chatId, getUniqName(message));
         if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
+            messageService.initializeTable(users);
             for (Long currentChatId : users.keySet()) {
                 SendMessage messageAllSleep = new SendMessage();
                 chatStates.put(currentChatId, PLAYING); //выставление всем ролям состояния: Играет

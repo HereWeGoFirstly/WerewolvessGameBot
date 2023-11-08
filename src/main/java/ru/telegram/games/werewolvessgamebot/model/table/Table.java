@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.roles.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
