@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
+import ru.telegram.games.werewolvessgamebot.model.roles.GameRole;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 import ru.telegram.games.werewolvessgamebot.util.Consts;
 
@@ -109,9 +110,7 @@ public class ResponseHandler {
      * @param chatId - id of chat
      */
     private void actionOfRole(long chatId, Message message) {
-        switch (table.getPlayers().get(message.getFrom().getFirstName())) {
-            case
-        }
+        table.getPlayers().get(getUniqName(message));
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("Выберите одну из 3 карт на столе");
         sendMessage.setChatId(chatId);
