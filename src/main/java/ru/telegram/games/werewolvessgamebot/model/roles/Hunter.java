@@ -11,5 +11,8 @@ public class Hunter extends GameRole{
     public Hunter(Table table) {
         super(table);
     }
-
+    @Override
+    public String toString() {
+        return "Охотник";
+    }
 }

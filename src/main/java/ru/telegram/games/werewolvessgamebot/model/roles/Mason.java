@@ -15,4 +15,8 @@ public class Mason extends GameRole {
     public Mason(Table table) {
         super(table);
     }
+    @Override
+    public String toString() {
+        return "Масон";
+    }
 }

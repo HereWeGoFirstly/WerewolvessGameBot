@@ -15,4 +15,9 @@ public class Hooligan extends GameRole {
     public Hooligan(Table table) {
         super(table);
     }
+
+    @Override
+    public String toString() {
+        return "Хулиганка";
+    }
 }

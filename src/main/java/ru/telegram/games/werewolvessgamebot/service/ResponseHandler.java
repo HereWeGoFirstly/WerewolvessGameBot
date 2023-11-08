@@ -47,13 +47,14 @@ public class ResponseHandler {
         switch (chatStates.get(chatId)) {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
-            case PLAYING -> sendActionMessageToAllUsers();
+//            case PLAYING -> ();
             default -> unexpectedMessage(chatId);
         }
     }
 
     /**
      * bot sends incorrect command message
+     *
      * @param chatId - id of chat
      */
     private void unexpectedMessage(long chatId) {
@@ -66,6 +67,7 @@ public class ResponseHandler {
 
     /**
      * stopping chat by command /stop
+     *
      * @param chatId - id of chat
      */
     private void stopChat(long chatId) {
@@ -81,7 +83,8 @@ public class ResponseHandler {
      * Options for users:
      * Rules: gives you rules of the game
      * Start game: game allows to start game
-     * @param chatId - id of chat
+     *
+     * @param chatId  - id of chat
      * @param message - message from user to bot
      */
     private void replyOfStartGame(long chatId, Message message) {
@@ -103,7 +106,8 @@ public class ResponseHandler {
 
     /**
      * Method which wait for players tap Ready button
-     * @param chatId - id of chat
+     *
+     * @param chatId  - id of chat
      * @param message - message from user to bot
      */
     private void replyOfReady(long chatId, Message message) {
@@ -121,19 +125,16 @@ public class ResponseHandler {
                 messageAllSleep.setText("Город засыпает");
                 messageAllSleep.setChatId(currentChatId);
                 sender.execute(messageAllSleep);
-                sendActionMessageToAllUsers();
+                sender.execute(SendMessage
+                        .builder().chatId(currentChatId).text(
+                                String.format("Ваша роль: %s", messageService.getRoleByName(users.get(currentChatId)))).build());
+                sender.execute(messageService.actionMessageByName(users.get(currentChatId), currentChatId));
+
             }
         }
     }
-    /**
-     * Method to send list of actions for roles
-     */
-    private void sendActionMessageToAllUsers() {
-        for (Map.Entry<Long, String> user : users.entrySet()) {
-            SendMessage messageWithActions = messageService.actionMessageByName(user.getValue(), user.getKey());
-            sender.execute(messageWithActions);
-        }
-    }
+
+
 
     /**
      * Method for action of role
@@ -151,7 +152,7 @@ public class ResponseHandler {
     }
 
     private static String getUniqName(Message message) {
-        return message.getFrom().getFirstName() + message.getFrom().getUserName();
+        return message.getFrom().getFirstName() + " @" + message.getFrom().getUserName();
     }
 
     public boolean userIsActive(Long chatId) {

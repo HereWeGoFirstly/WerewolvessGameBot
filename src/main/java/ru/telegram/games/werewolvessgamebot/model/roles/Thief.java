@@ -13,4 +13,8 @@ public class Thief extends GameRole {
     public Thief(Table table) {
         super(table);
     }
+    @Override
+    public String toString() {
+        return "Вор";
+    }
 }

@@ -14,4 +14,9 @@ public class Accomplice extends GameRole {
     public Accomplice(Table table) {
         super(table);
     }
+
+    @Override
+    public String toString() {
+        return "Поддельник";
+    }
 }

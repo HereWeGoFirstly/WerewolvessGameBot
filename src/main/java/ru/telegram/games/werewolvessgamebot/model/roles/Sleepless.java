@@ -14,4 +14,9 @@ public class Sleepless extends GameRole {
     public Sleepless(Table table) {
         super(table);
     }
+
+    @Override
+    public String toString() {
+        return "Неспящий";
+    }
 }

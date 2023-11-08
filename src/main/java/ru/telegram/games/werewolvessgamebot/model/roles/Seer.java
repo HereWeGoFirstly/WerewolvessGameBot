@@ -10,4 +10,9 @@ public class Seer extends GameRole{
     public Seer(Table table) {
         super(table);
     }
+
+    @Override
+    public String toString() {
+        return "Провидец";
+    }
 }

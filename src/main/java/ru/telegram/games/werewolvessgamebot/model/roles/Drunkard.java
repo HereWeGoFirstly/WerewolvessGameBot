@@ -13,4 +13,9 @@ public class Drunkard extends GameRole {
     public Drunkard(Table table) {
         super(table);
     }
+
+    @Override
+    public String toString() {
+        return "Пьяница";
+    }
 }

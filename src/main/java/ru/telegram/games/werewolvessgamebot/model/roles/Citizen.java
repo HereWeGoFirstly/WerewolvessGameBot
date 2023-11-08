@@ -13,4 +13,8 @@ public class Citizen extends GameRole {
     public Citizen(Table table) {
         super(table);
     }
+    @Override
+    public String toString() {
+        return "Житель";
+    }
 }

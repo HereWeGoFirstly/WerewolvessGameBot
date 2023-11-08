@@ -14,5 +14,9 @@ public class Werewolf extends GameRole {
     public Werewolf(Table table) {
         super(table);
     }
+    @Override
+    public String toString() {
+        return "Оборотень";
+    }
 
 }
