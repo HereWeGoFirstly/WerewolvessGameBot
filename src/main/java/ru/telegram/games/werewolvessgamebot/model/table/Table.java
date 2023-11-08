@@ -1,75 +1,77 @@
 package ru.telegram.games.werewolvessgamebot.model.table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.roles.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Data
+@RequiredArgsConstructor
 @Component
+@Slf4j
 public class Table {
+    private final ApplicationContext context;
 
-    private static final Map<String, List<GameRole>> PRESETS = Map.of(
-            "5:1", List.of(new Werewolf(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard()),
+    private static final Map<String, List<Class<? extends GameRole>>> PRESETS = Map.of(
+            "5:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class),
 
-            "6:1", List.of(new Werewolf(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter()),
+            "6:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class, Hunter.class),
 
-            "7:1", List.of(new Werewolf(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf()),
+            "7:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class, Hunter.class, Werewolf.class),
 
-            "8:1", List.of(new Werewolf(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf(), new Citizen()),
+            "8:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class, Hunter.class, Werewolf.class, Citizen.class),
 
-            "9:1", List.of(new Werewolf(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf(), new Citizen()
-                    , new Seer()));
+            "9:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class, Hunter.class, Werewolf.class, Citizen.class
+                    , Seer.class));
 
-    private final Map<String, GameRole> players = new HashMap<>();
-    private final List<GameRole> remainingRoles = new ArrayList<>();
+    @Getter
+    private Map<String, GameRole> players = new HashMap<>();
+    private List<GameRole> remainingRoles = new ArrayList<>();
 
     public void assignRoles(Map<Long, String> users) {
-        List<GameRole> preset = new ArrayList<>(PRESETS.entrySet().stream()
+        List<Class<? extends GameRole>> preset = new ArrayList<>(PRESETS.entrySet().stream()
                 .filter((namePresetEntry -> namePresetEntry.getKey().split(":")[0].equals("" + users.size())))
                 .findAny()
                 .orElseThrow(() -> new NoSuchElementException("Can't find suitable preset"))
                 .getValue());
 
         Collections.shuffle(preset);
-//        preset.forEach((x) -> {
-//            System.out.print(x.getClass().getSimpleName() + " ");
-//        });
 
-        for (int i = 0; i < preset.size(); i++) {
-            if (remainingRoles.size() < 3 && !preset.get(i).getClass().equals(Werewolf.class)) {
-                remainingRoles.add(preset.remove(i));
+        log.info("Preset configured : " + preset.size() + "\n" + preset.stream().map(Class::getSimpleName).toList());
+
+        List<GameRole> activeRoles = new ArrayList<>();
+        for (Class<? extends GameRole> roleClass : preset) {
+            GameRole gameRole = context.getBean(roleClass);
+            if (remainingRoles.size() < 3 && !roleClass.getName().equals(Werewolf.class.getName())) {
+                remainingRoles.add(gameRole);
+            } else {
+                activeRoles.add(gameRole);
             }
         }
-
-//        remainingRoles.forEach((x) -> {
-//            System.out.print(x.getClass().getSimpleName() + " ");
-//        });
-//        System.out.println();
-//        remainingRoles = new ArrayList<>();
-
-//        for (Map.Entry<Long, String> idName : users.entrySet()) {
-//
-//            String name = idName.getValue();
-//            players.put(name, preset.get(i));
-//            preset.remove(i);
-//        }
-//        System.out.println(preset.size());
-
+        log.info("activeRoles : " + activeRoles.size() + "\n" + activeRoles);
+        log.info("remainingRoles : " + remainingRoles.size() + "\n" + remainingRoles);
+        int i = 0;
+        for (String name : users.values()) {
+            players.put(name, activeRoles.get(i++));
+        }
+        log.info("ALL ROLES ARE ASSIGNED:\n" +
+                players.entrySet().stream().map(nameRole -> nameRole.getKey() +
+                        " " + nameRole.getValue().getClass().getSimpleName()).toList());
     }
 
-    public static void main(String[] args) {
-        Table table = new Table();
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя"));
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба"));
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза"));
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)"));
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)", 9L, "Ваня"));
+    public void refreshTable() {
+        players = new HashMap<>();
+        remainingRoles = new ArrayList<>();
     }
+
+
 }
