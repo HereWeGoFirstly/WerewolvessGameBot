@@ -16,18 +16,28 @@ public class MessageService {
     public SendMessage actionMessageByName(String name, Long chatId) {
         SendMessage sendMessage = new SendMessage();
         GameRole role = table.getPlayers().get(name);
+
         if (role.getClass().equals(Werewolf.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+
         } else if (role.getClass().equals(Mason.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+
         } else if (role.getClass().equals(Thief.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.choosePlayer(table.getPlayers().keySet()));
+
         } else if (role.getClass().equals(Seer.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.chooseActionOfSeer());
+
         } else if (role.getClass().equals(Hooligan.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.choosePlayer(table.getPlayers().keySet()));
+
         } else if (role.getClass().equals(Sleepless.class)) {
             sendMessage.setText(String.format("Ваша роль: %s", table.getPlayers().get(name).getRusName()));
+
+        } else {
+            sendMessage.setText("Дождитесь действий игроков");
+
         }
         return sendMessage;
     }
