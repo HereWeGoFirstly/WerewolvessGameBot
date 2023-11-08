@@ -15,6 +15,7 @@ public class MessageService {
 
     public SendMessage actionMessageByName(String name, Long chatId) {
         SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
         GameRole role = table.getPlayers().get(name);
 
         if (role.getClass().equals(Werewolf.class)) {

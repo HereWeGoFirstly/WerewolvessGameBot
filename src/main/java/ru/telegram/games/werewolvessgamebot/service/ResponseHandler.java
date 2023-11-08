@@ -48,21 +48,21 @@ public class ResponseHandler {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
             case PLAYING -> sendActionMessageToAllUsers();
+            default -> unexpectedMessage(chatId);
         }
+    }
 
-//        switch (chatStates.get(chatId)) {
-//            case AWAITING_NAME -> replyToName(chatId, message);
-//            case FOOD_DRINK_SELECTION -> replyToFoodDrinkSelection(chatId, message);
-//            case PIZZA_TOPPINGS -> replyToPizzaToppings(chatId, message);
-//            case AWAITING_CONFIRMATION -> replyToOrder(chatId, message);
-//            default -> unexpectedMessage(chatId);
-//        }
+    private void unexpectedMessage(long chatId) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("Вы ввели некорректную команду");
+        sender.execute(sendMessage);
     }
 
     private void stopChat(long chatId) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("");
+        sendMessage.setText("Игра завершена");
         chatStates.remove(chatId);
         sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         sender.execute(sendMessage);
