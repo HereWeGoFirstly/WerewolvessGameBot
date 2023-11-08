@@ -49,6 +49,7 @@ public class ResponseHandler {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
         }
+
 //        switch (chatStates.get(chatId)) {
 //            case AWAITING_NAME -> replyToName(chatId, message);
 //            case FOOD_DRINK_SELECTION -> replyToFoodDrinkSelection(chatId, message);
@@ -106,7 +107,8 @@ public class ResponseHandler {
      * Method for action of werewolf
      * @param chatId - id of chat
      */
-    private void actionOfWerewolf(long chatId, Message message) {
+    private void actionOfRole(long chatId, Message message) {
+
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("Выберите одну из 3 карт на столе");
         sendMessage.setChatId(chatId);
