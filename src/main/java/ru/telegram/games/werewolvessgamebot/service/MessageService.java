@@ -18,10 +18,24 @@ public class MessageService {
         GameRole role = table.getPlayers().get(name);
 
         if (role.getClass().equals(Werewolf.class)) {
-            sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+            if (table.getPlayers().values().stream().filter(el -> el.getClass().equals(Werewolf.class)).count() > 1) {
+                sendMessage.setText(String.format("Ваш второй оборотень: %s",
+                        table.getPlayers().entrySet().stream().filter(el ->
+                                        el.getValue().getClass().equals(Werewolf.class) && !el.getKey().equals(name))
+                                .findAny().get()));
+            } else {
+                sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+            }
 
         } else if (role.getClass().equals(Mason.class)) {
-            sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+            if (table.getPlayers().values().stream().filter(el -> el.getClass().equals(Mason.class)).count() > 1) {
+                sendMessage.setText(String.format("Ваш второй массон: %s",
+                        table.getPlayers().entrySet().stream().filter(el ->
+                                        el.getValue().getClass().equals(Mason.class) && !el.getKey().equals(name))
+                                .findAny().get()));
+            } else {
+                sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+            }
 
         } else if (role.getClass().equals(Thief.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.choosePlayer(table.getPlayers().keySet()));
@@ -31,13 +45,11 @@ public class MessageService {
 
         } else if (role.getClass().equals(Hooligan.class)) {
             sendMessage.setReplyMarkup(KeyboardFactory.choosePlayer(table.getPlayers().keySet()));
-
-        } else if (role.getClass().equals(Sleepless.class)) {
-            sendMessage.setText(String.format("Ваша роль: %s", table.getPlayers().get(name).getRusName()));
-
-        } else {
+        }
+//        } else if (role.getClass().equals(Sleepless.class)) {
+//            sendMessage.setText(String.format("Ваша роль: %s", table.getPlayers().get(name).getRusName()));
+        else {
             sendMessage.setText("Дождитесь действий игроков");
-
         }
         return sendMessage;
     }
