@@ -52,13 +52,22 @@ public class ResponseHandler {
         }
     }
 
+    /**
+     * bot sends incorrect command message
+     * @param chatId - id of chat
+     */
     private void unexpectedMessage(long chatId) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("Вы ввели некорректную команду");
+        SendMessage sendMessage = SendMessage.builder()
+                .chatId(chatId)
+                .text("Вы ввели некорректную команду")
+                .build();
         sender.execute(sendMessage);
     }
 
+    /**
+     * stopping chat by command /stop
+     * @param chatId - id of chat
+     */
     private void stopChat(long chatId) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -68,6 +77,13 @@ public class ResponseHandler {
         sender.execute(sendMessage);
     }
 
+    /**
+     * Options for users:
+     * Rules: gives you rules of the game
+     * Start game: game allows to start game
+     * @param chatId - id of chat
+     * @param message - message from user to bot
+     */
     private void replyOfStartGame(long chatId, Message message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -85,6 +101,11 @@ public class ResponseHandler {
         sender.execute(sendMessage);
     }
 
+    /**
+     * Method which wait for players tap Ready button
+     * @param chatId - id of chat
+     * @param message - message from user to bot
+     */
     private void replyOfReady(long chatId, Message message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -103,7 +124,9 @@ public class ResponseHandler {
             }
         }
     }
-
+    /**
+     * Method to send list of actions for roles
+     */
     private void sendActionMessageToAllUsers() {
         for (Map.Entry<Long, String> user : users.entrySet()) {
             SendMessage messageWithActions = messageService.actionMessageByName(user.getValue(), user.getKey());
@@ -112,7 +135,7 @@ public class ResponseHandler {
     }
 
     /**
-     * Method for action of werewolf
+     * Method for action of role
      *
      * @param chatId - id of chat
      */
