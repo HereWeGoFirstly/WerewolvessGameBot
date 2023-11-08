@@ -18,4 +18,8 @@ public abstract class GameRole {
     public void doAction(RoleAction action) {
         action.accept(table);
     }
+
+    public String getRusName() {
+        return null;
+    }
 }

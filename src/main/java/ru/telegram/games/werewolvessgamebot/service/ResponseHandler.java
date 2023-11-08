@@ -106,8 +106,8 @@ public class ResponseHandler {
 
     private void sendActionMessageToAllUsers() {
         for (Map.Entry<Long, String> user : users.entrySet()) {
-            SendMessage messageAllSleep = messageService.actionMessageByName(user.getValue(), user.getKey());
-            sender.execute(messageAllSleep);
+            SendMessage messageWithActions = messageService.actionMessageByName(user.getValue(), user.getKey());
+            sender.execute(messageWithActions);
         }
     }
 
