@@ -11,6 +11,6 @@ import ru.telegram.games.werewolvessgamebot.model.action.RoleAction;
 @Scope("prototype")
 public class Citizen extends GameRole {
     @Override
-    public void doAction(RoleAction action) {
+    public void doAction(RoleAction<Table> action) {
     }
 }

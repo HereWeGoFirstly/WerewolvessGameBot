@@ -1,6 +1,5 @@
 package ru.telegram.games.werewolvessgamebot.model.action;
 
-import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;
 
