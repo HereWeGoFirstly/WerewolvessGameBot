@@ -7,8 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
-import ru.telegram.games.werewolvessgamebot.model.roles.GameRole;
-import ru.telegram.games.werewolvessgamebot.model.table.Table;
 import ru.telegram.games.werewolvessgamebot.util.Consts;
 
 import java.util.HashMap;
@@ -21,14 +19,14 @@ public class ResponseHandler {
 
     private final BotProperties botProperties;
     private final SilentSender sender;
-    private final Table table;
+    private final MessageService messageService;
     private final Map<Long, UserState> chatStates;
     private final Map<Long, String> users = new HashMap<>();
 
-    public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties, Table table) {
+    public ResponseHandler(SilentSender sender, DBContext db, BotProperties botProperties, MessageService messageService) {
         this.sender = sender;
         this.botProperties = botProperties;
-        this.table = table;
+        this.messageService = messageService;
         db.clear();
         chatStates = db.getMap(CHAT_STATES);
     }
@@ -49,6 +47,7 @@ public class ResponseHandler {
         switch (chatStates.get(chatId)) {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
+            case PLAYING -> actionOfRole(chatId, message);
         }
 
 //        switch (chatStates.get(chatId)) {
@@ -91,16 +90,24 @@ public class ResponseHandler {
         sendMessage.setChatId(chatId);
         sendMessage.setText(String.format("Привет, %s! Ожидаем других игроков", message.getFrom().getFirstName()));
         sender.execute(sendMessage);
-        chatStates.put(chatId, UserState.READY_TO_PLAY);
+        chatStates.put(chatId, READY_TO_PLAY);
         users.put(chatId, getUniqName(message));
         if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
-            for (Long userId : users.keySet()) {
+            for (Long currentChatId : users.keySet()) {
                 SendMessage messageAllSleep = new SendMessage();
-                chatStates.put(chatId, UserState.PLAYING); //выставление всем ролям состояния: Играет
+                chatStates.put(currentChatId, PLAYING); //выставление всем ролям состояния: Играет
                 messageAllSleep.setText("Город засыпает");
-                messageAllSleep.setChatId(userId);
+                messageAllSleep.setChatId(currentChatId);
                 sender.execute(messageAllSleep);
+                sendActionMessageToAllUsers();
             }
+        }
+    }
+
+    private void sendActionMessageToAllUsers() {
+        for (Map.Entry<Long, String> user : users.entrySet()) {
+            SendMessage messageAllSleep = messageService.actionMessageByName(user.getValue(), user.getKey());
+            sender.execute(messageAllSleep);
         }
     }
 
@@ -110,11 +117,13 @@ public class ResponseHandler {
      * @param chatId - id of chat
      */
     private void actionOfRole(long chatId, Message message) {
-        table.getPlayers().get(getUniqName(message));
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Выберите одну из 3 карт на столе");
-        sendMessage.setChatId(chatId);
-        sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+        sender.execute(messageService.delegateAction(chatId, message));
+
+//        SendMessage sendMessage = new SendMessage();
+//        sendMessage.setText("Выберите одну из 3 карт на столе");
+//        sendMessage.setChatId(chatId);
+//        sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
+
     }
 
     private static String getUniqName(Message message) {

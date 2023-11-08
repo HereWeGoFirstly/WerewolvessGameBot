@@ -3,6 +3,7 @@ package ru.telegram.games.werewolvessgamebot.model.roles;
 
 import lombok.Data;
 import ru.telegram.games.werewolvessgamebot.model.action.RoleAction;
+import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
 
 /**
@@ -10,8 +11,11 @@ import ru.telegram.games.werewolvessgamebot.model.action.RoleAction;
  */
 @Data
 public abstract class GameRole {
+    private final Table table;
     private static String name;
     private TeamColor teamColor;
 
-    public abstract void doAction(RoleAction action);
+    public void doAction(RoleAction action) {
+        action.accept(table);
+    }
 }

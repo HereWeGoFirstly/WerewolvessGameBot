@@ -9,7 +9,6 @@ import org.telegram.abilitybots.api.objects.Flag;
 import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
-import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
 import java.util.function.BiConsumer;
 
@@ -23,10 +22,10 @@ public class WerewolvesBot extends AbilityBot {
     private final ResponseHandler responseHandler;
     private final BotProperties botProperties;
 
-    public WerewolvesBot(BotProperties botProperties, Table table) {
+    public WerewolvesBot(BotProperties botProperties, MessageService messageService) {
         super(botProperties.getToken(), botProperties.getName());
         this.botProperties = botProperties;
-        responseHandler = new ResponseHandler(silent, db, botProperties, table);
+        responseHandler = new ResponseHandler(silent, db, botProperties, messageService);
     }
 
 
