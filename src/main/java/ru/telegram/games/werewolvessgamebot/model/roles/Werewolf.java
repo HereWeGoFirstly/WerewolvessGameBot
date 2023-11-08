@@ -1,16 +1,19 @@
 package ru.telegram.games.werewolvessgamebot.model.roles;
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+/**
+ * Оборотень
+ */
+@RequiredArgsConstructor
 @Component
 @Scope("prototype")
-@RequiredArgsConstructor
-public class Hunter extends GameRole{
+public class Werewolf extends GameRole {
     private final Table table;
-
     @Override
     public void doAction() {
 

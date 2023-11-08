@@ -11,20 +11,20 @@ import java.util.*;
 public class Table {
 
     private static final Map<String, List<GameRole>> PRESETS = Map.of(
-            "5:1", List.of(new Werewolve(), new Mason(), new Mason(),
+            "5:1", List.of(new Werewolf(), new Mason(), new Mason(),
                     new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard()),
 
-            "6:1", List.of(new Werewolve(), new Mason(), new Mason(),
+            "6:1", List.of(new Werewolf(), new Mason(), new Mason(),
                     new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter()),
 
-            "7:1", List.of(new Werewolve(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolve()),
+            "7:1", List.of(new Werewolf(), new Mason(), new Mason(),
+                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf()),
 
-            "8:1", List.of(new Werewolve(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolve(), new Citizen()),
+            "8:1", List.of(new Werewolf(), new Mason(), new Mason(),
+                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf(), new Citizen()),
 
-            "9:1", List.of(new Werewolve(), new Mason(), new Mason(),
-                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolve(), new Citizen()
+            "9:1", List.of(new Werewolf(), new Mason(), new Mason(),
+                    new Accomplice(), new Thief(), new Hooligan(), new Sleepless(), new Drunkard(), new Hunter(), new Werewolf(), new Citizen()
                     , new Seer()));
 
     private final Map<String, GameRole> players = new HashMap<>();
@@ -43,7 +43,7 @@ public class Table {
 //        });
 
         for (int i = 0; i < preset.size(); i++) {
-            if (remainingRoles.size() < 3 && !preset.get(i).getClass().equals(Werewolve.class)) {
+            if (remainingRoles.size() < 3 && !preset.get(i).getClass().equals(Werewolf.class)) {
                 remainingRoles.add(preset.remove(i));
             }
         }
