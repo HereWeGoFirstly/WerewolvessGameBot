@@ -71,7 +71,7 @@ public class ResponseHandler {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         if ("Начать игру".equalsIgnoreCase(message.getText())) {
-            sendMessage.setText("Нажмите готов");
+            sendMessage.setText("Нажмите готов(а)");
             sendMessage.setReplyMarkup(KeyboardFactory.ready());
             chatStates.put(chatId, AWAITING_READY_TO_PLAY);
         } else if ("Правила".equalsIgnoreCase((message.getText()))) {
@@ -94,11 +94,19 @@ public class ResponseHandler {
         if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
             for (Long userId: users.keySet()) {
                 SendMessage messageAllSleep = new SendMessage();
+                chatStates.put(chatId, UserState.PLAYING);
                 messageAllSleep.setText("Город засыпает");
                 messageAllSleep.setChatId(userId);
                 sender.execute(messageAllSleep);
             }
         }
+    }
+
+
+    private void actionOfWerewolve(long chatId, Message message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
     }
 
     public boolean userIsActive(Long chatId) {
