@@ -16,7 +16,7 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Werewolf extends GameRole {
     private final Table table;
     @Override
-    public void doAction(RoleAction<Table> action) {
+    public void doAction(RoleAction action) {
 
     }
 }

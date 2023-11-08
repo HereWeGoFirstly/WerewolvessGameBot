@@ -17,7 +17,7 @@ public class Hooligan extends GameRole {
     private final Table table;
 
     @Override
-    public void doAction(RoleAction<Table> action) {
+    public void doAction(RoleAction action) {
 
     }
 }

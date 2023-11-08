@@ -13,6 +13,6 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Citizen extends GameRole {
 
     @Override
-    public void doAction(RoleAction<Table> action) {
+    public void doAction(RoleAction action) {
     }
 }
