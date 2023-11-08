@@ -56,6 +56,8 @@ public class MessageService {
     }
 
     public SendMessage delegateAction(long chatId, Message message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
         return null;
     }
 }
