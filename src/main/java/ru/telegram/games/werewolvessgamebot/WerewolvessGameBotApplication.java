@@ -16,23 +16,23 @@ public class WerewolvessGameBotApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(WerewolvessGameBotApplication.class, args);
-        Table table = ctx.getBean(Table.class);
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя"));
-        table.refreshTable();
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба"));
-        table.refreshTable();
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза"));
-        table.refreshTable();
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)"));
-        table.refreshTable();
-        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)", 9L, "Ваня"));
+//        Table table = ctx.getBean(Table.class);
+//        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя"));
+//        table.refreshTable();
+//        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба"));
+//        table.refreshTable();
+//        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза"));
+//        table.refreshTable();
+//        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)"));
+//        table.refreshTable();
+//        table.assignRoles(Map.of(1L, "Гена", 2L, "Сережа", 3L, "Сергей", 4L, "Паша", 5L, "Валя", 6L, "Люба", 7L, "Лиза", 8L, "Саша(хуй его кто это)", 9L, "Ваня"));
 
-//        try {
-//            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-//            botsApi.registerBot(ctx.getBean("werewolvesBot", AbilityBot.class));
-//        } catch (TelegramApiException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(ctx.getBean("werewolvesBot", AbilityBot.class));
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
