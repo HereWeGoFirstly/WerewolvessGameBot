@@ -11,7 +11,6 @@ import ru.telegram.games.werewolvessgamebot.util.Consts;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import static ru.telegram.games.werewolvessgamebot.model.UserState.*;
 
