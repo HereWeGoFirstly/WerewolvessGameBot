@@ -123,12 +123,20 @@ public class MessageService {
                 hooligan.doAction();
             }
 
-        } else if (role.getClass().equals(Thief.class)) {
+        } else if (role.getClass().equals(Werewolf.class)) {
+            int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
+            sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
 
+        } else if (role.getClass().equals(Thief.class)) {
+            role.doAction();
+            sendMessage.setText("Вы успешно поменяли карту");
+
+        } else if (role.getClass().equals(Mason.class)) {
+            int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
+            sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
         }
 
-
-            return sendMessage;
+        return sendMessage;
     }
 
     public void initializeTable(Map<Long, String> users) {
