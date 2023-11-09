@@ -14,7 +14,6 @@ import java.util.*;
 @Slf4j
 public class Table {
     private final ApplicationContext context;
-
     private static final Map<String, List<Class<? extends GameRole>>> PRESETS = Map.of(
 
 
@@ -39,7 +38,9 @@ public class Table {
 
     @Getter
     private Map<String, GameRole> players = new HashMap<>();
+    @Getter
     private List<GameRole> remainingRoles = new ArrayList<>();
+
 
     public void assignRoles(Map<Long, String> users) {
         List<Class<? extends GameRole>> preset = new ArrayList<>(PRESETS.entrySet().stream()

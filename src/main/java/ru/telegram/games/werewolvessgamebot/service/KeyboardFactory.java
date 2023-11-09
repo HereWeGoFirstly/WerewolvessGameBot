@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,14 @@ import java.util.Set;
 public class KeyboardFactory {
 
     private final Table table;
+
+    public static final String SEER_CHOOSE_TWO_CARDS = "Посмотреть 2 карты на столе";
+    public static final String SEER_SEE_PLAYER_CARD = "Посмотреть карту игрока";
+    public static final String CARD_ONE = "Карта #1";
+    public static final String CARD_TWO = "Карта #2";
+    public static final String CARD_THREE = "Карта #3";
+
+
 
     public static ReplyKeyboard startGameAndRules() {
         KeyboardRow row = new KeyboardRow();
@@ -35,9 +44,9 @@ public class KeyboardFactory {
 
     public static ReplyKeyboard chooseOneCardFromTable() {
         KeyboardRow row = new KeyboardRow();
-        row.add("Карта #1");
-        row.add("Карта #2");
-        row.add("Карта #3");
+        row.add(CARD_ONE);
+        row.add(CARD_TWO);
+        row.add(CARD_THREE);
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
@@ -50,8 +59,19 @@ public class KeyboardFactory {
     }
     public static ReplyKeyboard chooseActionOfSeer() {
         KeyboardRow row = new KeyboardRow();
-        row.add("Посмотреть 2 карты на столе");
-        row.add("Посмотреть карту игрока");
+        row.add(SEER_CHOOSE_TWO_CARDS);
+        row.add(SEER_SEE_PLAYER_CARD);
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
+    public static ReplyKeyboard seerChooseOneFromTwo(Integer chosenCardNum) {
+        List<Integer> cardNumbers = new ArrayList<>();
+        cardNumbers.add(1);
+        cardNumbers.add(2);
+        cardNumbers.add(3);
+        cardNumbers.remove(chosenCardNum);
+        KeyboardRow row = new KeyboardRow();
+        row.add("Выберите карту #" + cardNumbers.get(0));
+        row.add("Выберите карту #" + cardNumbers.get(1));
         return new ReplyKeyboardMarkup(List.of(row));
     }
 }

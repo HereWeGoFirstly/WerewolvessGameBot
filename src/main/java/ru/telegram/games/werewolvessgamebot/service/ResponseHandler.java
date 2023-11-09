@@ -142,7 +142,7 @@ public class ResponseHandler {
      * @param chatId - id of chat
      */
     private void actionOfRole(long chatId, Message message) {
-        sender.execute(messageService.delegateAction(chatId, message));
+        sender.execute(messageService.delegateAction(chatId, message, users.get(chatId)));
 
 //        SendMessage sendMessage = new SendMessage();
 //        sendMessage.setText("Выберите одну из 3 карт на столе");
