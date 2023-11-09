@@ -66,6 +66,7 @@ public class Table {
         log.info("remainingRoles : " + remainingRoles.size() + "\n" + remainingRoles);
         int i = 0;
         for (String name : users.values()) {
+            activeRoles.get(i).setName(name);
             players.put(name, activeRoles.get(i++));
         }
         log.info("ALL ROLES ARE ASSIGNED:\n" +

@@ -28,23 +28,16 @@ public class Hooligan extends GameRole {
         super(table);
     }
 
-
     @Override
     public void doAction() {
         Map<String, GameRole> players = table.getPlayers();
         Predicate<GameRole> isThereThief = role -> role.getClass().getSimpleName().equals(Thief.class.getSimpleName());
 
-        if (players.values().stream().anyMatch(isThereThief)) {
-            Thief thief = (Thief) players.values().stream().filter(isThereThief).findAny().get();
-            if (thief.isActionPerformed()) {
-                shuffleRoles(players);
-            } else
+        if (players.values().stream().anyMatch(isThereThief) &&
+                players.values().stream().filter(isThereThief).findAny().get().isActionPerformed()) {
+            players.put(firstChosenPlayer, players.get(secondChosenPlayer));
+            players.put(secondChosenPlayer, players.get(firstChosenPlayer));
         }
-    }
-
-    private void shuffleRoles(Map<String, GameRole> players) {
-        players.put(firstChosenPlayer, players.get(secondChosenPlayer));
-        players.put(secondChosenPlayer, players.get(firstChosenPlayer));
     }
 
     @Override

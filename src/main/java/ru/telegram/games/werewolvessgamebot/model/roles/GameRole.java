@@ -11,8 +11,8 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 @Data
 public abstract class GameRole {
     protected final Table table;
-    private static String name;
-    private TeamColor teamColor;
+    protected String name;
+    protected TeamColor teamColor;
     private boolean isActionPerformed;
 
     public abstract void doAction();
