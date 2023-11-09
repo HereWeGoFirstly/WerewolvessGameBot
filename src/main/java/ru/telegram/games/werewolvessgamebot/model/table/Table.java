@@ -17,8 +17,11 @@ public class Table {
     private static final Map<String, List<Class<? extends GameRole>>> PRESETS = Map.of(
 
 
-            "2:1", List.of(Werewolf.class, Citizen.class, Citizen.class,
-                    Citizen.class, Citizen.class),
+            "2:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class),
+            "3:1", List.of(Werewolf.class, Mason.class, Mason.class,
+                    Accomplice.class, Thief.class, Hooligan.class),
+
 
             "5:1", List.of(Werewolf.class, Mason.class, Mason.class,
                     Accomplice.class, Thief.class, Hooligan.class, Sleepless.class, Drunkard.class),

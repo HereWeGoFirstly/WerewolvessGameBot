@@ -5,6 +5,6 @@ bot:
     description: Starts the bot
     text: Добро пожаловать в игру Оборотни.
   finish:
-    descriptioon: Finish the bot
+    description: Finish the bot
     text: Игра завершена
 
