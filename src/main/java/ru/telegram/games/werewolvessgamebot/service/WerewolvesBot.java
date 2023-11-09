@@ -43,6 +43,15 @@ public class WerewolvesBot extends AbilityBot {
                 .action(ctx -> responseHandler.replyToStart(ctx.chatId()))
                 .build();
     }
+    public Ability finishBot() {
+        return Ability.builder()
+                .name("finish")
+                .info(botProperties.getFinish().getDescription())
+                .locality(USER)
+                .privacy(PUBLIC)
+                .action(ctx -> responseHandler.replyToFinish(ctx.chatId()))
+                .build();
+    }
 
     public Reply replyToButtons() {
         BiConsumer<BaseAbilityBot, Update> action = (abilityBot, upd) -> responseHandler.replyToButtons(getChatId(upd), upd.getMessage());

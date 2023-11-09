@@ -32,12 +32,20 @@ public class ResponseHandler {
     }
 
     public void replyToStart(long chatId) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(botProperties.getStart().getText());
-        message.setReplyMarkup(KeyboardFactory.startGameAndRules());
-        sender.execute(message);
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(botProperties.getStart().getText());
+        sendMessage.setReplyMarkup(KeyboardFactory.startGameAndRules());
+        sender.execute(sendMessage);
         chatStates.put(chatId, AWAITING_START_GAME);
+    }
+
+    public void replyToFinish(long chatId) {
+        SendMessage sendMessage = SendMessage.builder()
+                .chatId(chatId)
+                .text(botProperties.getFinish().getText())
+                .build();
+        sender.execute(sendMessage);
     }
 
     public void replyToButtons(long chatId, Message message) {
@@ -132,6 +140,7 @@ public class ResponseHandler {
 
             }
         }
+
     }
 
 
@@ -148,8 +157,8 @@ public class ResponseHandler {
 //        sendMessage.setText("Выберите одну из 3 карт на столе");
 //        sendMessage.setChatId(chatId);
 //        sendMessage.setReplyMarkup(KeyboardFactory.chooseOneCardFromTable());
-
     }
+
 
     private static String getUniqName(Message message) {
         return message.getFrom().getFirstName() + " @" + message.getFrom().getUserName();
@@ -158,4 +167,6 @@ public class ResponseHandler {
     public boolean userIsActive(Long chatId) {
         return chatStates.containsKey(chatId);
     }
+
+
 }
