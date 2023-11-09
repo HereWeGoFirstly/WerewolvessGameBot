@@ -18,4 +18,9 @@ public class Doppelganger extends GameRole {
     public String toString() {
         return "Двойник";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

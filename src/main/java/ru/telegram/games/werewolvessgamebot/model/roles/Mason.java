@@ -19,4 +19,9 @@ public class Mason extends GameRole {
     public String toString() {
         return "Масон";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

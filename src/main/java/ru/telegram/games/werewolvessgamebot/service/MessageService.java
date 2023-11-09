@@ -116,10 +116,10 @@ public class MessageService {
             sendMessage.setReplyMarkup(KeyboardFactory.choosePlayer(table.getPlayers().keySet()
                     .stream().filter(playerName -> !playerName.equals(firstChosenPlayer)).collect(Collectors.toSet())));
             hooligan.setChosenCard(true);
-            hooligan.setFirstChosenCard(firstChosenPlayer);
+            hooligan.setFirstChosenPlayer(firstChosenPlayer);
             } else {
                 String secondChosenPlayer = message.getText();
-                hooligan.setSecondChosenCard(secondChosenPlayer);
+                hooligan.setSecondChosenPlayer(secondChosenPlayer);
                 hooligan.doAction();
             }
 

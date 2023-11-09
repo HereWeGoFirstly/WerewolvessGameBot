@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.function.Predicate;
+
 /**
  * Хулиганка
  */
@@ -17,16 +21,30 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Hooligan extends GameRole {
 
     private boolean isChosenCard;
-    private String firstChosenCard;
-    private String secondChosenCard;
+    private String firstChosenPlayer;
+    private String secondChosenPlayer;
+
     public Hooligan(Table table) {
         super(table);
     }
 
 
-
     @Override
     public void doAction() {
+        Map<String, GameRole> players = table.getPlayers();
+        Predicate<GameRole> isThereThief = role -> role.getClass().getSimpleName().equals(Thief.class.getSimpleName());
+
+        if (players.values().stream().anyMatch(isThereThief)) {
+            Thief thief = (Thief) players.values().stream().filter(isThereThief).findAny().get();
+            if (thief.isActionPerformed()) {
+                shuffleRoles(players);
+            } else
+        }
+    }
+
+    private void shuffleRoles(Map<String, GameRole> players) {
+        players.put(firstChosenPlayer, players.get(secondChosenPlayer));
+        players.put(secondChosenPlayer, players.get(firstChosenPlayer));
     }
 
     @Override

@@ -25,6 +25,12 @@ public class Seer extends GameRole{
     public String toString() {
         return "Провидец";
     }
+
+    @Override
+    public void doAction() {
+
+    }
+
     public enum ActionType {
         TWO_CARDS, PLAYER_CARD;
     }

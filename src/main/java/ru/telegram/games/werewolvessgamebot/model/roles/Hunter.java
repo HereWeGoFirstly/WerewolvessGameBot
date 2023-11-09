@@ -15,4 +15,9 @@ public class Hunter extends GameRole{
     public String toString() {
         return "Охотник";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

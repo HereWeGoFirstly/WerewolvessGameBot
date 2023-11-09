@@ -19,4 +19,8 @@ public class Werewolf extends GameRole {
         return "Оборотень";
     }
 
+    @Override
+    public void doAction() {
+
+    }
 }

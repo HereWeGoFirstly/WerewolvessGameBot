@@ -17,4 +17,9 @@ public class Citizen extends GameRole {
     public String toString() {
         return "Житель";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

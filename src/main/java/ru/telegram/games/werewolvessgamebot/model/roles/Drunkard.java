@@ -18,4 +18,9 @@ public class Drunkard extends GameRole {
     public String toString() {
         return "Пьяница";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

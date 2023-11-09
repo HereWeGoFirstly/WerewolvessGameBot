@@ -19,4 +19,9 @@ public class Sleepless extends GameRole {
     public String toString() {
         return "Неспящий";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

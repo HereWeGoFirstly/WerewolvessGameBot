@@ -19,4 +19,9 @@ public class Accomplice extends GameRole {
     public String toString() {
         return "Поддельник";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }

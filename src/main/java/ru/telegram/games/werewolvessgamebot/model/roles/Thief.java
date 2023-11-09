@@ -17,4 +17,9 @@ public class Thief extends GameRole {
     public String toString() {
         return "Вор";
     }
+
+    @Override
+    public void doAction() {
+
+    }
 }
