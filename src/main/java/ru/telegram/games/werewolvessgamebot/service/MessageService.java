@@ -140,6 +140,7 @@ public class MessageService {
             } else {
                 String secondChosenPlayer = message.getText();
                 hooligan.setSecondChosenPlayer(secondChosenPlayer);
+                sendMessage.setText(String.format("Вы успешно поменяли роли %s и %s", hooligan.getFirstChosenPlayer(), hooligan.getSecondChosenPlayer()));
                 hooligan.doAction();
                 hooligan.setActionPerformed(true);
             }

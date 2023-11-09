@@ -11,6 +11,7 @@ import ru.telegram.games.werewolvessgamebot.util.Consts;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static ru.telegram.games.werewolvessgamebot.model.UserState.*;
 
@@ -125,7 +126,9 @@ public class ResponseHandler {
         sender.execute(sendMessage);
         chatStates.put(chatId, READY_TO_PLAY);
         users.put(chatId, getUniqName(message));
-        if (chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count() == users.size()) {
+        long countAwaitingUsers = chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count();
+        if (countAwaitingUsers == users.size() && countAwaitingUsers >= 3) {
+
             messageService.initializeTable(users);
             for (Long currentChatId : users.keySet()) {
                 SendMessage messageAllSleep = new SendMessage();
