@@ -168,7 +168,8 @@ public class MessageService {
             role.setActionPerformed(true);
         } else if (role.getClass().equals(Sleepless.class) && message.getText().equals(CHECK_SLEEPLESS)) {
             if (checkAllRolesActed()) {
-                sendMessage.setText(String.format("Ваша роль ", table.getPlayers().get(name)));
+                sendMessage.setText(String.format("Ваша роль %s", table.getPlayers().get(name)));
+                role.setActionPerformed(true);
             } else {
                 sendMessage.setText("Игроки еще не выполнили свои действия");
             }
@@ -186,6 +187,8 @@ public class MessageService {
     }
 
     public boolean checkAllRolesActed() {
-        return table.getPlayers().values().stream().allMatch(GameRole::isActionPerformed);
+        return table.getPlayers().values().stream()
+                .filter(gameRole -> !gameRole.getClass().equals(Sleepless.class))
+                .allMatch(GameRole::isActionPerformed);
     }
 }
