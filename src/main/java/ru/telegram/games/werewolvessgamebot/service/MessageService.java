@@ -24,6 +24,7 @@ public class MessageService {
 
     public SendMessage actionMessageByName(String name, Long chatId) {
         SendMessage sendMessage = new SendMessage();
+        sendMessage.setText("Подумай еще");
         sendMessage.setChatId(chatId);
         GameRole role = table.getPlayers().get(name);
 
@@ -94,10 +95,11 @@ public class MessageService {
 
     public SendMessage delegateAction(long chatId, Message message, String name) {
         SendMessage sendMessage = new SendMessage();
+        sendMessage.setText("Подумай еще");
         sendMessage.setChatId(chatId);
         GameRole role = table.getPlayers().get(name);
         if (role.isActionPerformed()) {
-            sendMessage.setText("Вы уже соверщили действие");
+            sendMessage.setText("Вы уже совершили действие");
             return sendMessage;
         }
         if (role.getClass().equals(Seer.class)) {
@@ -124,7 +126,7 @@ public class MessageService {
                 seer.setActionPerformed(true);
             }
 
-        } else if (role.getClass().equals(Hooligan.class)) {
+        } else if (role.getClass().equals(Hooligan.class) && table.getPlayers().containsKey(message.getText())) {
             Hooligan hooligan = (Hooligan) role;
             if (!hooligan.isChosenCard()) {
                 String firstChosenPlayer = message.getText();
@@ -150,14 +152,14 @@ public class MessageService {
             sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);
 
-        } else if (role.getClass().equals(Thief.class)) {
+        } else if (role.getClass().equals(Thief.class) && table.getPlayers().containsKey(message.getText())) {
             Thief thief = (Thief) role;
             thief.setChosenPlayer(message.getText());
             role.doAction();
             sendMessage.setText(String.format("Ваша новая роль %s", table.getPlayers().get(thief.getName())));
             role.setActionPerformed(true);
 
-        } else if (role.getClass().equals(Mason.class)) {
+        } else if (role.getClass().equals(Mason.class) && message.getText().startsWith(CARD_NUM)) {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
             sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);

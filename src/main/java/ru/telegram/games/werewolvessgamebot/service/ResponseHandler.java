@@ -57,7 +57,6 @@ public class ResponseHandler {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
             case PLAYING -> actionOfRole(chatId, message);
-            default -> unexpectedMessage(chatId);
         }
     }
 
@@ -66,13 +65,13 @@ public class ResponseHandler {
      *
      * @param chatId - id of chat
      */
-    private void unexpectedMessage(long chatId) {
-        SendMessage sendMessage = SendMessage.builder()
-                .chatId(chatId)
-                .text("Вы ввели некорректную команду")
-                .build();
-        sender.execute(sendMessage);
-    }
+//    private void unexpectedMessage(long chatId) {
+//        SendMessage sendMessage = SendMessage.builder()
+//                .chatId(chatId)
+//                .text("Вы ввели некорректную команду")
+//                .build();
+//        sender.execute(sendMessage);
+//    }
 
     /**
      * stopping chat by command /stop
