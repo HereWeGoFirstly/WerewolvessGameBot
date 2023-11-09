@@ -31,7 +31,7 @@ public class Hooligan extends GameRole {
     @Override
     public void doAction() {
         Map<String, GameRole> players = table.getPlayers();
-        Predicate<GameRole> isThereThief = role -> role.getClass().getSimpleName().equals(Thief.class.getSimpleName());
+        Predicate<GameRole> isThereThief = role -> role.getClass().equals(Thief.class);
 
         if (players.values().stream().anyMatch(isThereThief) &&
                 players.values().stream().filter(isThereThief).findAny().get().isActionPerformed()) {
