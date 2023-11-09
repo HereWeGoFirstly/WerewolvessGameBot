@@ -17,9 +17,8 @@ public class KeyboardFactory {
 
     public static final String SEER_CHOOSE_TWO_CARDS = "Посмотреть 2 карты на столе";
     public static final String SEER_SEE_PLAYER_CARD = "Посмотреть карту игрока";
-    public static final String CARD_ONE = "Карта #1";
-    public static final String CARD_TWO = "Карта #2";
-    public static final String CARD_THREE = "Карта #3";
+
+    public static final String CARD_NUM = "Карта #";
 
 
 
@@ -44,9 +43,9 @@ public class KeyboardFactory {
 
     public static ReplyKeyboard chooseOneCardFromTable() {
         KeyboardRow row = new KeyboardRow();
-        row.add(CARD_ONE);
-        row.add(CARD_TWO);
-        row.add(CARD_THREE);
+        row.add(CARD_NUM + 1);
+        row.add(CARD_NUM + 2);
+        row.add(CARD_NUM + 3);
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
