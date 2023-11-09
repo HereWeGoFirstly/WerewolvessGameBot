@@ -37,7 +37,7 @@ public class Thief extends GameRole {
         players.put(chosenPlayer, this);
 
         Optional<GameRole> optionalHooligan = table.getPlayers().values().stream()
-                .filter(role -> role.getClass().getSimpleName().equals(Hooligan.class.getSimpleName()))
+                .filter(role -> role.getClass().equals(Hooligan.class))
                 .findFirst();
 
         optionalHooligan.ifPresent(GameRole::doAction);
