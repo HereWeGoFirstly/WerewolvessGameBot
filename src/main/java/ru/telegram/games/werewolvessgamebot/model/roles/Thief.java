@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Вор
@@ -31,5 +33,10 @@ public class Thief extends GameRole {
         Map<String, GameRole> players = table.getPlayers();
         players.put(name, players.get(chosenPlayer));
         players.put(chosenPlayer, players.get(name));
+        Optional<GameRole> optionalHooligan = table.getPlayers().values().stream()
+                .filter(role -> role.getClass().getSimpleName().equals(Hooligan.class.getSimpleName()))
+                .findFirst();
+
+        optionalHooligan.ifPresent(GameRole::doAction);
     }
 }
