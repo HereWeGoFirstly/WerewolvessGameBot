@@ -31,11 +31,10 @@ public class Thief extends GameRole {
     @Override
     public void doAction() {
         Map<String, GameRole> players = table.getPlayers();
-        GameRole thief = players.get(name);
         GameRole chosenPlayerRole = players.get(chosenPlayer);
 
         players.put(name, chosenPlayerRole);
-        players.put(chosenPlayer, thief);
+        players.put(chosenPlayer, this);
 
         Optional<GameRole> optionalHooligan = table.getPlayers().values().stream()
                 .filter(role -> role.getClass().getSimpleName().equals(Hooligan.class.getSimpleName()))
