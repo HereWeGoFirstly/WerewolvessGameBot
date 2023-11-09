@@ -1,6 +1,7 @@
 package ru.telegram.games.werewolvessgamebot.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -84,10 +85,12 @@ public class MessageService {
                         .map(Map.Entry::getKey).findAny().orElse("Бот сломался")));
                 role.setActionPerformed(true);
             }
-        }
-//        } else if (role.getClass().equals(Sleepless.class)) {
-//            sendMessage.setText(String.format("Ваша роль: %s", table.getPlayers().get(name).getRusName()));
-        else {
+
+        } else if (role.getClass().equals(Sleepless.class)) {
+            sendMessage.setText(CHOOSE_ACTION);
+            sendMessage.setReplyMarkup(KeyboardFactory.checkYourRole());
+
+        } else {
             sendMessage.setText("Дождитесь действий игроков");
         }
         return sendMessage;
@@ -163,6 +166,12 @@ public class MessageService {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
             sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);
+        } else if (role.getClass().equals(Sleepless.class) && message.getText().equals(CHECK_SLEEPLESS)) {
+            if (checkAllRolesActed()) {
+                sendMessage.setText(String.format("Ваша роль ", table.getPlayers().get(name)));
+            } else {
+                sendMessage.setText("Игроки еще не выполнили свои действия");
+            }
         }
 
         return sendMessage;
@@ -174,5 +183,9 @@ public class MessageService {
 
     public String getRoleByName(String roleName) {
         return table.getPlayers().get(roleName).toString();
+    }
+
+    public boolean checkAllRolesActed() {
+        return table.getPlayers().values().stream().allMatch(GameRole::isActionPerformed);
     }
 }

@@ -17,9 +17,8 @@ public class KeyboardFactory {
 
     public static final String SEER_CHOOSE_TWO_CARDS = "Посмотреть 2 карты на столе";
     public static final String SEER_SEE_PLAYER_CARD = "Посмотреть карту игрока";
-
+    public static final String CHECK_SLEEPLESS = "Посмотреть свою роль";
     public static final String CARD_NUM = "Карта #";
-
 
 
     public static ReplyKeyboard startGameAndRules() {
@@ -51,17 +50,19 @@ public class KeyboardFactory {
 
     public static ReplyKeyboard choosePlayer(Set<String> players) {
         KeyboardRow row = new KeyboardRow();
-        for (String player: players) {
+        for (String player : players) {
             row.add(player);
         }
         return new ReplyKeyboardMarkup(List.of(row));
     }
+
     public static ReplyKeyboard chooseActionOfSeer() {
         KeyboardRow row = new KeyboardRow();
         row.add(SEER_CHOOSE_TWO_CARDS);
         row.add(SEER_SEE_PLAYER_CARD);
         return new ReplyKeyboardMarkup(List.of(row));
     }
+
     public static ReplyKeyboard seerChooseOneFromTwo(Integer chosenCardNum) {
         List<Integer> cardNumbers = new ArrayList<>();
         cardNumbers.add(1);
@@ -71,6 +72,12 @@ public class KeyboardFactory {
         KeyboardRow row = new KeyboardRow();
         row.add("Выберите карту #" + cardNumbers.get(0));
         row.add("Выберите карту #" + cardNumbers.get(1));
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
+
+    public static ReplyKeyboard checkYourRole() {
+        KeyboardRow row = new KeyboardRow();
+        row.add(CHECK_SLEEPLESS);
         return new ReplyKeyboardMarkup(List.of(row));
     }
 }
