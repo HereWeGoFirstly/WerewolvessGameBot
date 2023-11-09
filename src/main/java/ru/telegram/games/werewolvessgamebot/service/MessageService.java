@@ -68,7 +68,7 @@ public class MessageService {
             if (table.getPlayers().values().stream().filter(el -> el.getClass().equals(Werewolf.class)).count() > 1) {
                 sendMessage.setText(String.format("Ваши оборотни %s",
                         table.getPlayers().entrySet().stream().filter(el ->
-                                        el.getValue().getClass().equals(Werewolf.class)).map(roleEntry -> roleEntry.getKey().toString())
+                                        el.getValue().getClass().equals(Werewolf.class)).map(Map.Entry::getKey)
                                 .reduce((role1, role2) -> role1 + " и " + role2)));
             } else {
                 sendMessage.setText(String.format("Ваш оборотень: %s", table.getPlayers().entrySet().stream()
@@ -123,13 +123,15 @@ public class MessageService {
                 hooligan.doAction();
             }
 
-        } else if (role.getClass().equals(Werewolf.class)) {
+        } else if (role.getClass().equals(Werewolf.class) && message.getText().startsWith(CARD_NUM)) {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
             sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
 
         } else if (role.getClass().equals(Thief.class)) {
+            Thief thief = (Thief) role;
+            thief.setChosenPlayer(message.getText());
             role.doAction();
-            sendMessage.setText("Вы успешно поменяли карту");
+            sendMessage.setText(String.format("Ваша новая роль %s", table.getPlayers().get(thief.getName())));
 
         } else if (role.getClass().equals(Mason.class)) {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));

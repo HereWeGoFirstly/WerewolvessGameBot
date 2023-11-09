@@ -47,7 +47,7 @@ public class ResponseHandler {
         switch (chatStates.get(chatId)) {
             case AWAITING_START_GAME -> replyOfStartGame(chatId, message);
             case AWAITING_READY_TO_PLAY -> replyOfReady(chatId, message);
-//            case PLAYING -> ();
+            case PLAYING -> actionOfRole(chatId, message);
             default -> unexpectedMessage(chatId);
         }
     }
