@@ -3,6 +3,7 @@ package ru.telegram.games.werewolvessgamebot.model.roles;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
@@ -18,6 +19,7 @@ import java.util.function.Predicate;
 @Scope("prototype")
 @Getter
 @Setter
+@Slf4j
 public class Hooligan extends GameRole {
 
     private boolean isChosenCard;
@@ -38,6 +40,10 @@ public class Hooligan extends GameRole {
             players.put(firstChosenPlayer, players.get(secondChosenPlayer));
             players.put(secondChosenPlayer, players.get(firstChosenPlayer));
         }
+
+        log.info("TABLE STATE AFTER HOOLIGAN:\n" +
+                players.entrySet().stream().map(nameRole -> nameRole.getKey() +
+                        " " + nameRole.getValue().getClass().getSimpleName()).toList());
     }
 
     @Override
