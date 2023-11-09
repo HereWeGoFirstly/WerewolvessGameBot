@@ -37,8 +37,12 @@ public class Hooligan extends GameRole {
 
         if (players.values().stream().noneMatch(isThereThief) || (players.values().stream().anyMatch(isThereThief) &&
                 players.values().stream().filter(isThereThief).findAny().get().isActionPerformed())) {
-            players.put(firstChosenPlayer, players.get(secondChosenPlayer));
-            players.put(secondChosenPlayer, players.get(firstChosenPlayer));
+
+            GameRole secondRole = players.get(secondChosenPlayer);
+            GameRole firstRole = players.get(firstChosenPlayer);
+
+            players.put(firstChosenPlayer, secondRole);
+            players.put(secondChosenPlayer, firstRole);
         }
 
         log.info("TABLE STATE AFTER HOOLIGAN:\n" +
