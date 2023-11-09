@@ -35,8 +35,8 @@ public class Hooligan extends GameRole {
         Map<String, GameRole> players = table.getPlayers();
         Predicate<GameRole> isThereThief = role -> role.getClass().equals(Thief.class);
 
-        if (players.values().stream().anyMatch(isThereThief) &&
-                players.values().stream().filter(isThereThief).findAny().get().isActionPerformed()) {
+        if (players.values().stream().noneMatch(isThereThief) || (players.values().stream().anyMatch(isThereThief) &&
+                players.values().stream().filter(isThereThief).findAny().get().isActionPerformed())) {
             players.put(firstChosenPlayer, players.get(secondChosenPlayer));
             players.put(secondChosenPlayer, players.get(firstChosenPlayer));
         }
