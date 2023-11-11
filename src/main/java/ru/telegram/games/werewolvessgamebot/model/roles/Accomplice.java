@@ -13,6 +13,7 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Accomplice extends GameRole {
     public Accomplice(Table table) {
         super(table);
+        setActionPerformed(true);
     }
 
     @Override

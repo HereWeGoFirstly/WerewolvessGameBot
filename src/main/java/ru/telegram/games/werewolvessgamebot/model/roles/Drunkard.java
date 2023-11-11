@@ -12,6 +12,7 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Drunkard extends GameRole {
     public Drunkard(Table table) {
         super(table);
+        setActionPerformed(true);
     }
 
     @Override

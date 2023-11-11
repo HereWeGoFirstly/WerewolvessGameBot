@@ -22,7 +22,7 @@ public class Table {
                     Sleepless.class, Sleepless.class),
 
             "3:1", List.of(Werewolf.class, Mason.class, Mason.class,
-                    Accomplice.class, Thief.class, Hooligan.class),
+                    Sleepless.class, Thief.class, Hooligan.class),
 
 
             "5:1", List.of(Werewolf.class, Mason.class, Mason.class,

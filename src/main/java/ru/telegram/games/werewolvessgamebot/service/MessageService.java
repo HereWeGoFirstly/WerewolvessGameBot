@@ -1,7 +1,6 @@
 package ru.telegram.games.werewolvessgamebot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -101,7 +100,7 @@ public class MessageService {
         sendMessage.setText("Подумай еще");
         sendMessage.setChatId(chatId);
         GameRole role = table.getPlayers().get(name);
-        if (role.isActionPerformed()) {
+        if (role.isActionPerformed() && !role.getClass().equals(Sleepless.class)) {
             sendMessage.setText("Вы уже совершили действие");
             return sendMessage;
         }
@@ -152,7 +151,7 @@ public class MessageService {
 
         } else if (role.getClass().equals(Werewolf.class) && message.getText().startsWith(CARD_NUM)) {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
-            sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
+            sendMessage.setText(String.format("Выбранная вами карта - %s \n %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);
 
         } else if (role.getClass().equals(Thief.class) && table.getPlayers().containsKey(message.getText())) {
@@ -166,6 +165,7 @@ public class MessageService {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
             sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);
+
         } else if (role.getClass().equals(Sleepless.class) && message.getText().equals(CHECK_SLEEPLESS)) {
             if (checkAllRolesActed()) {
                 sendMessage.setText(String.format("Ваша роль %s", table.getPlayers().get(name)));
@@ -182,10 +182,13 @@ public class MessageService {
         table.assignRoles(users);
     }
 
-    public String getRoleByName(String roleName) {
+    public String getRoleNameByName(String roleName) {
         return table.getPlayers().get(roleName).toString();
     }
 
+    public GameRole getRoleByName(String roleName) {
+        return table.getPlayers().get(roleName);
+    }
     public boolean checkAllRolesActed() {
         return table.getPlayers().values().stream()
                 .filter(gameRole -> !gameRole.getClass().equals(Sleepless.class))

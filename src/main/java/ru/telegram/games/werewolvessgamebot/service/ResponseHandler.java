@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import ru.telegram.games.werewolvessgamebot.config.BotProperties;
 import ru.telegram.games.werewolvessgamebot.model.UserState;
+import ru.telegram.games.werewolvessgamebot.model.roles.GameRole;
 import ru.telegram.games.werewolvessgamebot.util.Consts;
 
 import java.util.HashMap;
@@ -134,9 +135,11 @@ public class ResponseHandler {
                 messageAllSleep.setText("Город засыпает");
                 messageAllSleep.setChatId(currentChatId);
                 sender.execute(messageAllSleep);
+                GameRole currentGameRole = messageService.getRoleByName(users.get(currentChatId));
                 sender.execute(SendMessage
                         .builder().chatId(currentChatId).text(
-                                String.format("Ваша роль: %s", messageService.getRoleByName(users.get(currentChatId)))).build());
+                                String.format("Ваша роль: %s \n %s", messageService.getRoleNameByName(users.get(currentChatId)),
+                                        currentGameRole)).build());
                 sender.execute(messageService.actionMessageByName(users.get(currentChatId), currentChatId));
 
             }

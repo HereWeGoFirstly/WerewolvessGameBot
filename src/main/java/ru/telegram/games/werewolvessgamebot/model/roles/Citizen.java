@@ -12,6 +12,7 @@ import ru.telegram.games.werewolvessgamebot.model.table.Table;
 public class Citizen extends GameRole {
     public Citizen(Table table) {
         super(table);
+        setActionPerformed(true);
     }
     @Override
     public String toString() {

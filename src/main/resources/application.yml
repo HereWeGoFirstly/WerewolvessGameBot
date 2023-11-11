@@ -1,6 +1,6 @@
 bot:
   name: WerewolvessGameBot
-  token: 6373757126:AAG9I9z8aDBFplXLThhl3fkJPasuadHs224
+  token: 6373757126:AAGWj4AbJXkXKqv-1Bu6oa9E3vGsvPtnVNM
   start:
     description: Starts the bot
     text: Добро пожаловать в игру Оборотни.
