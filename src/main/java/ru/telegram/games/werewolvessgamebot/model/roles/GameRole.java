@@ -17,6 +17,7 @@ public abstract class GameRole {
 
     public abstract void doAction();
 
+    public abstract String getDesc();
 
     public boolean isActionPerformed() {
         return isActionPerformed;

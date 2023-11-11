@@ -6,6 +6,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
+
+import static ru.telegram.games.werewolvessgamebot.util.Consts.SEER_DESC;
+
 @Component
 @Scope("prototype")
 @Getter
@@ -29,6 +32,11 @@ public class Seer extends GameRole{
     @Override
     public void doAction() {
 
+    }
+
+    @Override
+    public String getDesc() {
+        return SEER_DESC;
     }
 
     public enum ActionType {

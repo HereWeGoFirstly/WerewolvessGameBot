@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import static ru.telegram.games.werewolvessgamebot.util.Consts.THIEF_DESC;
+
 /**
  * Вор
  */
@@ -47,5 +49,10 @@ public class Thief extends GameRole {
         log.info("TABLE STATE AFTER THIEF:\n" +
                 players.entrySet().stream().map(nameRole -> nameRole.getKey() +
                         " " + nameRole.getValue().getClass().getSimpleName()).toList());
+    }
+
+    @Override
+    public String getDesc() {
+        return THIEF_DESC;
     }
 }

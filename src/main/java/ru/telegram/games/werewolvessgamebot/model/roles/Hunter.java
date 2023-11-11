@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+import static ru.telegram.games.werewolvessgamebot.util.Consts.HUNTER_DESC;
+
 @Component
 @Scope("prototype")
 public class Hunter extends GameRole{
@@ -19,5 +21,10 @@ public class Hunter extends GameRole{
     @Override
     public void doAction() {
 
+    }
+
+    @Override
+    public String getDesc() {
+        return HUNTER_DESC;
     }
 }

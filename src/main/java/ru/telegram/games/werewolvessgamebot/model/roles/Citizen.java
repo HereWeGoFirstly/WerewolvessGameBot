@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import ru.telegram.games.werewolvessgamebot.model.table.Table;
 
+import static ru.telegram.games.werewolvessgamebot.util.Consts.CITIZEN_DESC;
+
 /**
  * Житель
  */
@@ -22,5 +24,10 @@ public class Citizen extends GameRole {
     @Override
     public void doAction() {
 
+    }
+
+    @Override
+    public String getDesc() {
+        return CITIZEN_DESC;
     }
 }

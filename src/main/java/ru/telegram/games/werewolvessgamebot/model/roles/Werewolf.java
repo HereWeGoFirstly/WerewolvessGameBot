@@ -18,9 +18,6 @@ public class Werewolf extends GameRole {
         super(table);
     }
 
-    @Getter
-    private final String desc = WEREWOLF_DESC;
-
     @Override
     public String toString() {
         return "Оборотень";
@@ -28,6 +25,9 @@ public class Werewolf extends GameRole {
 
     @Override
     public void doAction() {
-
+    }
+    @Override
+    public String getDesc() {
+        return WEREWOLF_DESC;
     }
 }

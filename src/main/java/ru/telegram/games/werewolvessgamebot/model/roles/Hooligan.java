@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.Predicate;
 
+import static ru.telegram.games.werewolvessgamebot.util.Consts.HOOLIGAN_DESC;
+
 /**
  * Хулиганка
  */
@@ -48,6 +50,11 @@ public class Hooligan extends GameRole {
         log.info("TABLE STATE AFTER HOOLIGAN:\n" +
                 players.entrySet().stream().map(nameRole -> nameRole.getKey() +
                         " " + nameRole.getValue().getClass().getSimpleName()).toList());
+    }
+
+    @Override
+    public String getDesc() {
+        return HOOLIGAN_DESC;
     }
 
     @Override
