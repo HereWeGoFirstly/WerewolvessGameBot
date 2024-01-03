@@ -151,7 +151,7 @@ public class MessageService {
 
         } else if (role.getClass().equals(Werewolf.class) && message.getText().startsWith(CARD_NUM)) {
             int indexOfChosenCard = Integer.parseInt(message.getText().substring((message.getText().length() - 1)));
-            sendMessage.setText(String.format("Выбранная вами карта - %s \n %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
+            sendMessage.setText(String.format("Выбранная вами карта - %s", table.getRemainingRoles().get(indexOfChosenCard - 1)));
             role.setActionPerformed(true);
 
         } else if (role.getClass().equals(Thief.class) && table.getPlayers().containsKey(message.getText())) {
