@@ -126,7 +126,7 @@ public class ResponseHandler {
         chatStates.put(chatId, READY_TO_PLAY);
         users.put(chatId, getUniqName(message));
         long countAwaitingUsers = chatStates.values().stream().filter(el -> !el.equals(AWAITING_START_GAME)).count();
-        if (countAwaitingUsers == users.size() && countAwaitingUsers >= 2) {
+        if (countAwaitingUsers == users.size() && countAwaitingUsers >= 4) {
 
             messageService.initializeTable(users);
             for (Long currentChatId : users.keySet()) {

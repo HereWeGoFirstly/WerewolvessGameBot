@@ -36,7 +36,6 @@ public class Thief extends GameRole {
     public void doAction() {
         Map<String, GameRole> players = table.getPlayers();
         GameRole chosenPlayerRole = players.get(chosenPlayer);
-
         players.put(name, chosenPlayerRole);
         players.put(chosenPlayer, this);
 
